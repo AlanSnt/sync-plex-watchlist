@@ -138,7 +138,7 @@ add_to_sonarr() {
     fi
 
     echo "Adding show '$title' to Sonarr..."
-    payload=$(jq -n --arg title "$title" --arg tvdbId "$tvdb_id" --arg qualityProfileId "$SONARR_QUALITY_PROFILE" --arg rootFolderPath "$RADARR_ROOT_FOLDER" --arg monitored "true" '{title: $title, tvdbId: $tvdbId, qualityProfileId: $qualityProfileId, rootFolderPath: $rootFolderPath, monitored: true}')
+    payload=$(jq -n --arg title "$title" --arg tvdbId "$tvdb_id" --arg qualityProfileId "$SONARR_QUALITY_PROFILE" --arg rootFolderPath "$SONARR_ROOT_FOLDER" --arg monitored "true" '{title: $title, tvdbId: $tvdbId, qualityProfileId: $qualityProfileId, rootFolderPath: $rootFolderPath, monitored: true}')
     response=$(curl -s -H "Content-Type: application/json" -X POST -d "$payload" "${SONARR_URL}/series?apikey=${SONARR_API_KEY}")
 
     if [[ $(echo "$response" | jq 'if type == "array" then 1 else 0 end') -eq 1 ]]; then
